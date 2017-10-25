@@ -46,6 +46,10 @@
             this.labelOffColor = new System.Windows.Forms.Label();
             this.labelOnColor = new System.Windows.Forms.Label();
             this.labelBTtype = new System.Windows.Forms.Label();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelName = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,25 +76,28 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // comboBoxID
             // 
             this.comboBoxID.FormattingEnabled = true;
-            this.comboBoxID.Location = new System.Drawing.Point(12, 50);
+            this.comboBoxID.Location = new System.Drawing.Point(12, 84);
             this.comboBoxID.Name = "comboBoxID";
             this.comboBoxID.Size = new System.Drawing.Size(121, 21);
             this.comboBoxID.TabIndex = 1;
@@ -98,7 +105,7 @@
             // radioClassBT
             // 
             this.radioClassBT.AutoSize = true;
-            this.radioClassBT.Location = new System.Drawing.Point(166, 28);
+            this.radioClassBT.Location = new System.Drawing.Point(139, 74);
             this.radioClassBT.Name = "radioClassBT";
             this.radioClassBT.Size = new System.Drawing.Size(109, 17);
             this.radioClassBT.TabIndex = 2;
@@ -110,7 +117,7 @@
             // radioSysBT
             // 
             this.radioSysBT.AutoSize = true;
-            this.radioSysBT.Location = new System.Drawing.Point(166, 51);
+            this.radioSysBT.Location = new System.Drawing.Point(139, 97);
             this.radioSysBT.Name = "radioSysBT";
             this.radioSysBT.Size = new System.Drawing.Size(105, 17);
             this.radioSysBT.TabIndex = 3;
@@ -122,7 +129,7 @@
             // labelID
             // 
             this.labelID.AutoSize = true;
-            this.labelID.Location = new System.Drawing.Point(12, 28);
+            this.labelID.Location = new System.Drawing.Point(12, 62);
             this.labelID.Name = "labelID";
             this.labelID.Size = new System.Drawing.Size(24, 13);
             this.labelID.TabIndex = 4;
@@ -131,7 +138,7 @@
             // comboBtType
             // 
             this.comboBtType.FormattingEnabled = true;
-            this.comboBtType.Location = new System.Drawing.Point(12, 127);
+            this.comboBtType.Location = new System.Drawing.Point(12, 161);
             this.comboBtType.Name = "comboBtType";
             this.comboBtType.Size = new System.Drawing.Size(121, 21);
             this.comboBtType.TabIndex = 5;
@@ -139,7 +146,7 @@
             // comboOncolor
             // 
             this.comboOncolor.FormattingEnabled = true;
-            this.comboOncolor.Location = new System.Drawing.Point(12, 217);
+            this.comboOncolor.Location = new System.Drawing.Point(12, 251);
             this.comboOncolor.Name = "comboOncolor";
             this.comboOncolor.Size = new System.Drawing.Size(121, 21);
             this.comboOncolor.TabIndex = 6;
@@ -147,7 +154,7 @@
             // comboOffcolor
             // 
             this.comboOffcolor.FormattingEnabled = true;
-            this.comboOffcolor.Location = new System.Drawing.Point(12, 292);
+            this.comboOffcolor.Location = new System.Drawing.Point(12, 326);
             this.comboOffcolor.Name = "comboOffcolor";
             this.comboOffcolor.Size = new System.Drawing.Size(121, 21);
             this.comboOffcolor.TabIndex = 7;
@@ -155,7 +162,7 @@
             // checkBoxOnFlashing
             // 
             this.checkBoxOnFlashing.AutoSize = true;
-            this.checkBoxOnFlashing.Location = new System.Drawing.Point(12, 244);
+            this.checkBoxOnFlashing.Location = new System.Drawing.Point(12, 278);
             this.checkBoxOnFlashing.Name = "checkBoxOnFlashing";
             this.checkBoxOnFlashing.Size = new System.Drawing.Size(82, 17);
             this.checkBoxOnFlashing.TabIndex = 8;
@@ -165,7 +172,7 @@
             // checkBoxOffFlashing
             // 
             this.checkBoxOffFlashing.AutoSize = true;
-            this.checkBoxOffFlashing.Location = new System.Drawing.Point(12, 319);
+            this.checkBoxOffFlashing.Location = new System.Drawing.Point(12, 353);
             this.checkBoxOffFlashing.Name = "checkBoxOffFlashing";
             this.checkBoxOffFlashing.Size = new System.Drawing.Size(82, 17);
             this.checkBoxOffFlashing.TabIndex = 9;
@@ -174,7 +181,7 @@
             // 
             // ValidateBT
             // 
-            this.ValidateBT.Location = new System.Drawing.Point(88, 362);
+            this.ValidateBT.Location = new System.Drawing.Point(88, 396);
             this.ValidateBT.Name = "ValidateBT";
             this.ValidateBT.Size = new System.Drawing.Size(75, 23);
             this.ValidateBT.TabIndex = 10;
@@ -185,7 +192,7 @@
             // labelOffColor
             // 
             this.labelOffColor.AutoSize = true;
-            this.labelOffColor.Location = new System.Drawing.Point(12, 273);
+            this.labelOffColor.Location = new System.Drawing.Point(12, 307);
             this.labelOffColor.Name = "labelOffColor";
             this.labelOffColor.Size = new System.Drawing.Size(48, 13);
             this.labelOffColor.TabIndex = 11;
@@ -194,7 +201,7 @@
             // labelOnColor
             // 
             this.labelOnColor.AutoSize = true;
-            this.labelOnColor.Location = new System.Drawing.Point(12, 201);
+            this.labelOnColor.Location = new System.Drawing.Point(12, 235);
             this.labelOnColor.Name = "labelOnColor";
             this.labelOnColor.Size = new System.Drawing.Size(46, 13);
             this.labelOnColor.TabIndex = 12;
@@ -203,17 +210,47 @@
             // labelBTtype
             // 
             this.labelBTtype.AutoSize = true;
-            this.labelBTtype.Location = new System.Drawing.Point(12, 108);
+            this.labelBTtype.Location = new System.Drawing.Point(12, 142);
             this.labelBTtype.Name = "labelBTtype";
             this.labelBTtype.Size = new System.Drawing.Size(65, 13);
             this.labelBTtype.TabIndex = 13;
             this.labelBTtype.Text = "Button Type";
             // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "map";
+            this.saveFileDialog.FileName = "new";
+            this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "new";
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(88, 27);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 14;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(41, 30);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(41, 13);
+            this.labelName.TabIndex = 15;
+            this.labelName.Text = "Name :";
+            // 
             // MapperForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(279, 421);
+            this.ClientSize = new System.Drawing.Size(279, 436);
+            this.Controls.Add(this.labelName);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.labelBTtype);
             this.Controls.Add(this.labelOnColor);
             this.Controls.Add(this.labelOffColor);
@@ -260,6 +297,10 @@
         private System.Windows.Forms.Label labelOffColor;
         private System.Windows.Forms.Label labelOnColor;
         private System.Windows.Forms.Label labelBTtype;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label labelName;
     }
 }
 

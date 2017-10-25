@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DmxControlLib">
-      <HintPath>..\..\DmxControlLib\DmxControlLib\bin\Debug\DmxControlLib.dll</HintPath>
-    </Reference>
     <Reference Include="Sanford.Multimedia">
       <HintPath>..\..\DLL\Sanford.Multimedia.dll</HintPath>
     </Reference>
@@ -87,6 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DmxControlLib\DmxControlLib\DmxControlLib.csproj">
+      <Project>{402b66f2-a527-4f74-a7cb-7167bd81a05c}</Project>
+      <Name>DmxControlLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

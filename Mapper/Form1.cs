@@ -7,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DmxControlLib.Hardware;
 using DmxControlLib.Utility;
 using System.Diagnostics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace Mapper
 {
@@ -24,6 +25,8 @@ namespace Mapper
 
         private void MapperForm_Load(object sender, EventArgs e)
         {
+            LaunchPadControl.LaunchPadInput += InputEvent;
+
             LaunchPadControl.Connect();
 
             Map = new LPMMap("NewMapping");
@@ -47,6 +50,8 @@ namespace Mapper
             comboBtType.SelectedItem = "Momentary";
 
             radioClassBT.Checked = true;
+
+            textBox1.Text = Map.name;
         }
 
         private void radioClassBT_CheckedChanged(object sender, EventArgs e)
@@ -71,6 +76,8 @@ namespace Mapper
 
         private void MapperForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+            LaunchPadControl.Reset();
             LaunchPadControl.close();
         }
 
@@ -81,7 +88,7 @@ namespace Mapper
             {
                 Debug.WriteLine(comboBoxID.SelectedItem.ToString());
                 ind = Map.BT.FindIndex(x => x.ID == int.Parse(comboBoxID.SelectedItem.ToString()));
-                switch(comboBtType.SelectedText)
+                switch(comboBtType.SelectedItem.ToString())
                 {
                     case "Momentary":
                         Map.BT[ind].Type = buttonType.Momentary;
@@ -90,13 +97,9 @@ namespace Mapper
                     case "Toogle":
                         Map.BT[ind].Type = buttonType.Toogle;
                         break;
-
-                    case "Temporized":
-                        Map.BT[ind].Type = buttonType.Temporized;
-                        break;
                 }
 
-                switch (comboOncolor.SelectedText)
+                switch (comboOncolor.SelectedItem.ToString())
                 {
                     case "Green":
                         Map.BT[ind].onColor = ButtonColor.Green;
@@ -119,7 +122,7 @@ namespace Mapper
                         break;
                 }
 
-                switch (comboOncolor.SelectedText)
+                switch (comboOffcolor.SelectedItem.ToString())
                 {
                     case "Green":
                         Map.BT[ind].offColor = ButtonColor.Green;
@@ -147,8 +150,8 @@ namespace Mapper
             }
             else
             {
-                ind = Map.SysBT.FindIndex(x => x.ID == int.Parse(comboBoxID.SelectedText));
-                switch (comboBtType.SelectedText)
+                ind = Map.SysBT.FindIndex(x => x.ID == int.Parse(comboBoxID.SelectedItem.ToString()));
+                switch (comboBtType.SelectedItem.ToString())
                 {
                     case "Momentary":
                         Map.SysBT[ind].Type = buttonType.Momentary;
@@ -157,13 +160,9 @@ namespace Mapper
                     case "Toogle":
                         Map.SysBT[ind].Type = buttonType.Toogle;
                         break;
-
-                    case "Temporized":
-                        Map.SysBT[ind].Type = buttonType.Temporized;
-                        break;
                 }
 
-                switch (comboOncolor.SelectedText)
+                switch (comboOncolor.SelectedItem.ToString())
                 {
                     case "Green":
                         Map.SysBT[ind].onColor = ButtonColor.Green;
@@ -186,7 +185,7 @@ namespace Mapper
                         break;
                 }
 
-                switch (comboOncolor.SelectedText)
+                switch (comboOffcolor.SelectedItem.ToString())
                 {
                     case "Green":
                         Map.SysBT[ind].offColor = ButtonColor.Green;
@@ -214,6 +213,71 @@ namespace Mapper
             }
 
             LaunchPadControl.LinkMapping(Map);
+        }
+
+        private void InputEvent(object sender, LaunchPadInputEventArgs e)
+        {
+            if(e.isOn)
+            {
+                if (e.isSystemLed)
+                {
+                    radioClassBT.Checked = false;
+                    radioSysBT.Checked = true;
+                }
+                else
+                {
+                    radioClassBT.Checked = true;
+                    radioSysBT.Checked = false;
+                }
+                comboBoxID.SelectedItem = e.position;
+            }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog.ShowDialog();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog.FileName = textBox1.Text;
+            saveFileDialog.ShowDialog();
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Map = new LPMMap("NewMap");
+            LaunchPadControl.LinkMapping(Map);
+
+            textBox1.Text = Map.name;
+        }
+
+        private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            BinaryFormatter format = new BinaryFormatter();
+            Stream STRE = saveFileDialog.OpenFile();
+
+            format.Serialize(STRE, Map);
+
+            STRE.Close();
+        }
+
+        private void openFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            BinaryFormatter format = new BinaryFormatter();
+            Stream STRE = openFileDialog.OpenFile();
+
+            Map = (LPMMap)format.Deserialize(STRE);
+
+            LaunchPadControl.LinkMapping(Map);
+            textBox1.Text = Map.name;
+
+            STRE.Close();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            Map.name = textBox1.Text;
         }
     }
 }
